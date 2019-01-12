@@ -1,0 +1,5 @@
+to initialise git repository use command git init
+
+
+Steps 1
+git init
