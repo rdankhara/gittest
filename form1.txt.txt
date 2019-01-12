@@ -29,3 +29,6 @@ git reset --hard
 --To revert only one file back to last commit, use command 
 git checkout filename
 
+
+--Branching 
+You create branch using git branch command or click branch button on source tree
