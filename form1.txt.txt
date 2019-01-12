@@ -1,5 +1,23 @@
 to initialise git repository use command git init
-
+to check the status use command git status
+to move file to staging use git add filename ,
+to commit changes use command git commit
+to push changes use command git push
 
 Steps 1
 git init
+
+Step 2
+git status (this should show file in green or red, reds will not be committed)
+
+Step 3
+git add fileNamePattern
+
+Step 4
+git commit -m 'message'
+
+Step 5
+a. set up remote using command
+git remote add origin giturl
+
+b. git push origin master
