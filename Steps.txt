@@ -32,3 +32,7 @@ git checkout filename
 
 --Branching 
 You create branch using git branch command or click branch button on source tree
+
+-- Step 1
+This should create branch and checkout new branch
+1. git checkout -b 'nameofnewbranch'
