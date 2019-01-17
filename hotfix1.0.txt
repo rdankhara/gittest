@@ -1,1 +1,44 @@
-fixed it
+https://kibana.banking.ops.thenbs.io/api/reporting/generate/printablePdf?jobParams=(browserTimezone:Europe%2FLondon,layout:(dimensions:(height:1016,width:1260),id:preserve_layout),objectType:dashboard,relativeUrls:!(%27%2Fapp%2Fkibana%23%2Fdashboard%2F8c1706f0-14bb-11e9-96f5-0f9533e4adb6%3F_a%3D(description:!%27!%27,filters:!!((!%27$state!%27:(store:appState),meta:(alias:!!n,disabled:!!f,index:!%278e997850-9986-11e8-b1ac-61dacee1de31!%27,key:kubernetes.namespace,negate:!!f,params:(query:banking-dev,type:phrase),type:phrase,value:banking-dev),query:(match:(kubernetes.namespace:(query:banking-dev,type:phrase))))),fullScreenMode:!!f,options:(darkTheme:!!f,hidePanelTitles:!!f,useMargins:!!t),panels:!!((embeddableConfig:(),gridData:(h:7,i:!%271!%27,w:11,x:35,y:0),id:bd5975b0-02df-11e9-9ab8-2971e6ddc93c,panelIndex:!%271!%27,type:visualization,version:!%276.5.1!%27),(embeddableConfig:(),gridData:(h:7,i:!%272!%27,w:12,x:23,y:0),id:a82aae10-02e0-11e9-9ab8-2971e6ddc93c,panelIndex:!%272!%27,type:visualization,version:!%276.5.1!%27),(embeddableConfig:(),gridData:(h:7,i:!%273!%27,w:12,x:11,y:0),id:!%276b6b6140-02e0-11e9-9ab8-2971e6ddc93c!%27,panelIndex:!%273!%27,type:visualization,version:!%276.5.1!%27),(embeddableConfig:(),gridData:(h:7,i:!%274!%27,w:11,x:0,y:0),id:!%271c2be780-02e0-11e9-9ab8-2971e6ddc93c!%27,panelIndex:!%274!%27,type:visualization,version:!%276.5.1!%27),(embeddableConfig:(),gridData:(h:7,i:!%275!%27,w:11,x:0,y:14),id:c7d4cf10-02f0-11e9-9ab8-2971e6ddc93c,panelIndex:!%275!%27,type:visualization,version:!%276.5.1!%27),(embeddableConfig:(),gridData:(h:7,i:!%276!%27,w:11,x:0,y:7),id:!%2788be24c0-02f0-11e9-9ab8-2971e6ddc93c!%27,panelIndex:!%276!%27,type:visualization,version:!%276.5.1!%27),(embeddableConfig:(),gridData:(h:7,i:!%277!%27,w:12,x:11,y:14),id:!%278c63deb0-14cc-11e9-96f5-0f9533e4adb6!%27,panelIndex:!%277!%27,type:visualization,version:!%276.5.1!%27),(embeddableConfig:(),gridData:(h:7,i:!%278!%27,w:12,x:11,y:7),id:da761310-17ed-11e9-9ba3-458ecc862df6,panelIndex:!%278!%27,type:visualization,version:!%276.5.4!%27),(embeddableConfig:(),gridData:(h:7,i:!%279!%27,w:11,x:0,y:21),id:!%278450a110-17ef-11e9-9ba3-458ecc862df6!%27,panelIndex:!%279!%27,type:visualization,version:!%276.5.4!%27),(embeddableConfig:(),gridData:(h:7,i:!%2710!%27,w:18,x:28,y:21),id:d58c4b10-1812-11e9-9ba3-458ecc862df6,panelIndex:!%2710!%27,type:visualization,version:!%276.5.4!%27),(embeddableConfig:(),gridData:(h:7,i:!%2711!%27,w:17,x:11,y:21),id:!%275c0b23f0-1813-11e9-9ba3-458ecc862df6!%27,panelIndex:!%2711!%27,type:visualization,version:!%276.5.4!%27),(embeddableConfig:(),gridData:(h:8,i:!%2712!%27,w:16,x:0,y:28),id:a24029b0-1813-11e9-9ba3-458ecc862df6,panelIndex:!%2712!%27,type:visualization,version:!%276.5.4!%27),(embeddableConfig:(),gridData:(h:8,i:!%2713!%27,w:16,x:16,y:28),id:d6ef4100-1813-11e9-9ba3-458ecc862df6,panelIndex:!%2713!%27,type:visualization,version:!%276.5.4!%27),(embeddableConfig:(),gridData:(h:8,i:!%2714!%27,w:14,x:32,y:28),id:!%272da0b470-1814-11e9-9ba3-458ecc862df6!%27,panelIndex:!%2714!%27,type:visualization,version:!%276.5.4!%27),(embeddableConfig:(),gridData:(h:14,i:!%2715!%27,w:23,x:23,y:7),id:!%27782abb70-181f-11e9-9ba3-458ecc862df6!%27,panelIndex:!%2715!%27,type:visualization,version:!%276.5.4!%27)),query:(language:kuery,query:!%27!%27),timeRestore:!!f,title:CAO-Test-Dashboard,viewMode:view)%26_g%3D(refreshInterval:(pause:!!f,value:5000),time:(from:now%252Fd,mode:quick,to:now%252Fd))%27),title:CAO-Test-Dashboard)
+
+
+-- Kibana Watcher
+PUT _watcher/watch/reporting
+{
+  "trigger" : {
+    "schedule" : {
+      "interval" : "1d"
+    }
+  },
+  "actions" : {
+    "email_admin" : {
+      "email" : {
+        "to" : "'rajnikant <rajdankh@sapient.com?'",
+        "subject" : "Test Kibana Report",
+        "body" : "Daily CAO Journey Latency report is attached",
+        "attachments" : {
+          "reporot.pdf"{
+            "http" : {
+              "content_type" : "application/pdf",
+              "requeest" : {
+                "method" : "POST",
+                "headers" : {
+                  "kbn-xsrf" : "reporting"
+                },
+                "to" : ["psuleman@sapient.com",
+          "aporia2@sapient.com",
+          "arjrao@publicisgroupe.net",
+          "pvyas@sapient.com",
+          "mark.contreras@nationwide.co.uk",
+          "kmohanty@sapient.com",
+          "rvellanki@sapient.com",
+          "Lucy.Rowse@nationwide.co.uk",
+          "akumar113@sapient.com"],
+                "read_timeout": "300s",
+                "url" : "https://kibana.banking.ops.thenbs.io/api/reporting/generate/printablePdf?jobParams=(browserTimezone:Europe%2FLondon,layout:(dimensions:(height:1016,width:1260),id:preserve_layout),objectType:dashboard,relativeUrls:!(%27%2Fapp%2Fkibana%23%2Fdashboard%2F8c1706f0-14bb-11e9-96f5-0f9533e4adb6%3F_g%3D(refreshInterval:(pause:!!t,value:0),time:(from:now%252Fd,mode:quick,to:now%252Fd))%26_a%3D(description:!%27!%27,filters:!!((!%27$state!%27:(store:appState),meta:(alias:!!n,disabled:!!f,index:!%278e997850-9986-11e8-b1ac-61dacee1de31!%27,key:kubernetes.namespace,negate:!!f,params:(query:banking-dev,type:phrase),type:phrase,value:banking-dev),query:(match:(kubernetes.namespace:(query:banking-dev,type:phrase))))),fullScreenMode:!!f,options:(darkTheme:!!f,hidePanelTitles:!!f,useMargins:!!t),panels:!!((embeddableConfig:(),gridData:(h:7,i:!%271!%27,w:11,x:35,y:0),id:bd5975b0-02df-11e9-9ab8-2971e6ddc93c,panelIndex:!%271!%27,type:visualization,version:!%276.5.1!%27),(embeddableConfig:(),gridData:(h:7,i:!%272!%27,w:12,x:23,y:0),id:a82aae10-02e0-11e9-9ab8-2971e6ddc93c,panelIndex:!%272!%27,type:visualization,version:!%276.5.1!%27),(embeddableConfig:(),gridData:(h:7,i:!%273!%27,w:12,x:11,y:0),id:!%276b6b6140-02e0-11e9-9ab8-2971e6ddc93c!%27,panelIndex:!%273!%27,type:visualization,version:!%276.5.1!%27),(embeddableConfig:(),gridData:(h:7,i:!%274!%27,w:11,x:0,y:0),id:!%271c2be780-02e0-11e9-9ab8-2971e6ddc93c!%27,panelIndex:!%274!%27,type:visualization,version:!%276.5.1!%27),(embeddableConfig:(),gridData:(h:7,i:!%275!%27,w:11,x:0,y:14),id:c7d4cf10-02f0-11e9-9ab8-2971e6ddc93c,panelIndex:!%275!%27,type:visualization,version:!%276.5.1!%27),(embeddableConfig:(),gridData:(h:7,i:!%276!%27,w:11,x:0,y:7),id:!%2788be24c0-02f0-11e9-9ab8-2971e6ddc93c!%27,panelIndex:!%276!%27,type:visualization,version:!%276.5.1!%27),(embeddableConfig:(),gridData:(h:7,i:!%277!%27,w:12,x:11,y:14),id:!%278c63deb0-14cc-11e9-96f5-0f9533e4adb6!%27,panelIndex:!%277!%27,type:visualization,version:!%276.5.1!%27),(embeddableConfig:(),gridData:(h:7,i:!%278!%27,w:12,x:11,y:7),id:da761310-17ed-11e9-9ba3-458ecc862df6,panelIndex:!%278!%27,type:visualization,version:!%276.5.4!%27),(embeddableConfig:(),gridData:(h:7,i:!%279!%27,w:11,x:0,y:21),id:!%278450a110-17ef-11e9-9ba3-458ecc862df6!%27,panelIndex:!%279!%27,type:visualization,version:!%276.5.4!%27),(embeddableConfig:(),gridData:(h:7,i:!%2710!%27,w:18,x:28,y:21),id:d58c4b10-1812-11e9-9ba3-458ecc862df6,panelIndex:!%2710!%27,type:visualization,version:!%276.5.4!%27),(embeddableConfig:(),gridData:(h:7,i:!%2711!%27,w:17,x:11,y:21),id:!%275c0b23f0-1813-11e9-9ba3-458ecc862df6!%27,panelIndex:!%2711!%27,type:visualization,version:!%276.5.4!%27),(embeddableConfig:(),gridData:(h:8,i:!%2712!%27,w:16,x:0,y:28),id:a24029b0-1813-11e9-9ba3-458ecc862df6,panelIndex:!%2712!%27,type:visualization,version:!%276.5.4!%27),(embeddableConfig:(),gridData:(h:8,i:!%2713!%27,w:16,x:16,y:28),id:d6ef4100-1813-11e9-9ba3-458ecc862df6,panelIndex:!%2713!%27,type:visualization,version:!%276.5.4!%27),(embeddableConfig:(),gridData:(h:8,i:!%2714!%27,w:14,x:32,y:28),id:!%272da0b470-1814-11e9-9ba3-458ecc862df6!%27,panelIndex:!%2714!%27,type:visualization,version:!%276.5.4!%27),(embeddableConfig:(),gridData:(h:14,i:!%2715!%27,w:23,x:23,y:7),id:!%27782abb70-181f-11e9-9ba3-458ecc862df6!%27,panelIndex:!%2715!%27,type:visualization,version:!%276.5.4!%27)),query:(language:kuery,query:!%27!%27),timeRestore:!!f,title:CAO-Test-Dashboard,viewMode:view)%27),title:CAO-Test-Dashboard)"
+              }
+          }
+        }
+      }
+    }
+  }
+}
