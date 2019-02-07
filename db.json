@@ -1,0 +1,7 @@
+{
+    "feedbacks": [{
+        "id" : 1,
+        "email" : "abc@gmail.com",
+        "comment" : "my comment"
+    }]
+}
